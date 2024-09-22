@@ -34,7 +34,7 @@ body {
 .e-jeep-dot {
     position: absolute;
     font-size: 24px;
-    transition: transform 1s ease; /* Smooth transition */
+    transition: transform 1s ease; /* Ensure this line is present */
     display: flex;
     justify-content: center;
     align-items: center;
