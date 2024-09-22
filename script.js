@@ -8,26 +8,22 @@ function moveEJeepDots(ejeepIndex) {
         dot.innerHTML = '🚍'; // E-jeep icon
         document.querySelector('.map').appendChild(dot);
 
-        // Set initial position based on current stop
-        const currentStopClass = stops[currentStopIndex].replace(/\s+/g, ''); // Class name from stop
+        const currentStopClass = stops[currentStopIndex].replace(/\s+/g, '');
         dot.classList.add(currentStopClass);
 
-        // Calculate travel time
-        let timeToNext = travelTimes[currentStopIndex] * 60000; // Convert minutes to milliseconds
+        let timeToNext = travelTimes[currentStopIndex] * 60000;
 
         setTimeout(() => {
-            dot.classList.remove(currentStopClass); // Remove current stop class
-            const nextStopClass = stops[nextStopIndex].replace(/\s+/g, ''); // Next stop class
-            dot.classList.add(nextStopClass); // Add next stop class
-
-            // Animate the glide effect
-            dot.style.transform = `translateY(${(nextStopIndex - currentStopIndex) * 60}px)`; // Adjust position
+            dot.classList.remove(currentStopClass);
+            const nextStopClass = stops[nextStopIndex].replace(/\s+/g, '');
+            dot.classList.add(nextStopClass);
+            dot.style.transform = `translateY(${(nextStopIndex - currentStopIndex) * 60}px)`;
 
             setTimeout(() => {
                 dot.remove();
-                currentStopIndexes[ejeepIndex]++; // Move to the next stop
-                moveEJeepDots(ejeepIndex); // Continue moving
-            }, 1000); // Delay for transition effect
+                currentStopIndexes[ejeepIndex]++;
+                moveEJeepDots(ejeepIndex);
+            }, 1000);
         }, timeToNext);
     }
 }
