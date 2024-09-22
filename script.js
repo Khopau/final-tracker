@@ -27,3 +27,5 @@ function moveEJeepDots(ejeepIndex) {
         }, timeToNext);
     }
 }
+
+<script src="script.js"></script>
