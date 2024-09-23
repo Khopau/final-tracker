@@ -5,6 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ateneo E-Jeep Schedule</title>
     <link rel="stylesheet" href="styles.css">
+    <script>
+        function validateSelection() {
+            const originSelect = document.getElementById('origin');
+            const destinationSelect = document.getElementById('destination');
+            
+            const originValue = originSelect.value;
+            const destinationValue = destinationSelect.value;
+
+            if (originValue === destinationValue) {
+                alert("Origin and destination cannot be the same. Please select different points.");
+                destinationSelect.selectedIndex = 0; // Reset destination to the first option
+            }
+        }
+    </script>
 </head>
 <body>
     <h1>Ateneo E-Jeep Schedule</h1>
@@ -13,7 +27,7 @@
     
     <div>
         <label for="origin">Select Point of Origin:</label>
-        <select id="origin">
+        <select id="origin" onchange="validateSelection()">
             <option value="Old Comm">Old Comm</option>
             <option value="Hagdan na Bato">Hagdan na Bato</option>
             <option value="Ateneo Grade School">Ateneo Grade School</option>
@@ -23,7 +37,7 @@
         </select>
 
         <label for="destination">Select Destination:</label>
-        <select id="destination">
+        <select id="destination" onchange="validateSelection()">
             <option value="Old Comm">Old Comm</option>
             <option value="Hagdan na Bato">Hagdan na Bato</option>
             <option value="Ateneo Grade School">Ateneo Grade School</option>
@@ -38,8 +52,9 @@
     <div class="map">
         <!-- Your map layout with stops -->
     </div>
-    
+
     <script src="script.js"></script>
 </body>
 </html>
+
 
