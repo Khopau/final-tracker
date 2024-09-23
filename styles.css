@@ -22,6 +22,12 @@ body {
     color: #d52b1e; /* Accent color for messages */
 }
 
+.stop-names {
+    font-size: 18px;
+    margin: 20px 0;
+    text-align: center;
+}
+
 .map {
     position: relative;
     width: 80%;
@@ -56,11 +62,6 @@ select {
     font-size: 16px;
     color: #003c5b;
     background-color: #f7f3e7;
-}
-
-#timeUntilNext {
-    font-size: 18px;
-    margin: 20px 0;
 }
 
 #timeUntilNext {
