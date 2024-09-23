@@ -10,63 +10,75 @@ const stops = [
 const travelTimes = [5, 3, 4, 2, 6]; // Example travel times in minutes
 const currentStopIndexes = [0, 0]; // Two e-jeeps starting at the first stop
 
-function isWithinSchedule() {
-    return true; // Placeholder for actual scheduling logic
-}
+const map = L.map('map').setView([14.5985, 121.0902], 15); // Set initial view near Ateneo
 
+// Add OpenStreetMap tiles
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+}).addTo(map);
+
+// Create markers for each stop
+const busMarkers = [
+    L.marker([14.5995, 121.0903]).bindPopup("Old Comm").addTo(map),
+    L.marker([14.5994, 121.0901]).bindPopup("Hagdan na Bato").addTo(map),
+    L.marker([14.5987, 121.0902]).bindPopup("Ateneo Grade School").addTo(map),
+    L.marker([14.5989, 121.0898]).bindPopup("2.5").addTo(map),
+    L.marker([14.5983, 121.0906]).bindPopup("Leong Hall").addTo(map),
+    L.marker([14.5981, 121.0900]).bindPopup("Xavier Hall").addTo(map)
+];
+
+// Clock function
 function updateClock() {
     const now = new Date();
     const options = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
-    document.getElementById('clock').textContent = now.toLocaleTimeString([], options);
+    document.getElementById('liveClock').textContent = now.toLocaleTimeString([], options);
 }
 
+// Update time until next e-jeep
 function updateTimeUntilNext(ejeepIndex) {
     const currentStopIndex = currentStopIndexes[ejeepIndex];
     const timeToNext = travelTimes[currentStopIndex]; // Get time in minutes
     document.getElementById('timeUntilNext').textContent = `Time to Next E-Jeep: ${timeToNext} minutes`;
 }
 
+// Move e-jeep dots on the map
 function moveEJeepDots(ejeepIndex) {
-    if (currentStopIndexes[ejeepIndex] < stops.length - 1 && isWithinSchedule()) {
+    if (currentStopIndexes[ejeepIndex] < stops.length - 1) {
         const currentStopIndex = currentStopIndexes[ejeepIndex];
         const nextStopIndex = currentStopIndex + 1;
 
         const dot = document.createElement('div');
         dot.className = 'e-jeep-dot';
         dot.innerHTML = '🚍'; // E-jeep icon
-        document.querySelector('.map').appendChild(dot);
+        document.getElementById('map').appendChild(dot); // Append to map container
 
-        // Set initial position based on current stop
-        const currentStopClass = stops[currentStopIndex].replace(/\s+/g, ''); // Remove spaces for class
-        dot.classList.add(currentStopClass);
+        // Position based on current stop
+        const position = busMarkers[currentStopIndex].getLatLng();
+        dot.style.position = 'absolute';
+        dot.style.transform = `translate(${map.latLngToContainerPoint(position).x}px, ${map.latLngToContainerPoint(position).y}px)`;
 
-        // Calculate time to next e-jeep
         let timeToNext = calculateTimeToNextEJeep(ejeepIndex);
         setTimeout(() => {
-            dot.classList.remove(currentStopClass);
-            const nextStopClass = stops[nextStopIndex].replace(/\s+/g, '');
-            dot.classList.add(nextStopClass);
-            dot.style.transform = `translateY(${(nextStopIndex - currentStopIndex) * 60}px)`; // Adjust position based on index
+            dot.remove(); // Remove dot after time
 
-            // Update displayed time until the next e-jeep
-            document.getElementById('timeUntilNext').innerText = `Time to next e-jeep: ${timeToNext / 60000} minutes`;
-
-            setTimeout(() => {
-                dot.remove();
-                currentStopIndexes[ejeepIndex]++; // Move to the next stop
-                moveEJeepDots(ejeepIndex); // Move to the next stop for this e-jeep
-            }, 1000); // Delay for transition effect
+            // Move to next stop
+            currentStopIndexes[ejeepIndex]++;
+            moveEJeepDots(ejeepIndex); // Move e-jeep again
         }, timeToNext);
     }
 }
 
+// Calculate time to next e-jeep
 function calculateTimeToNextEJeep(ejeepIndex) {
     return travelTimes[currentStopIndexes[ejeepIndex]] * 60000; // Time in milliseconds
 }
 
+// Start everything on window load
 window.onload = () => {
-    setInterval(updateClock, 1000); // Update the clock every second
-    updateClock(); // Initial call to display immediately
+    setInterval(updateClock, 1000); // Update clock every second
+    updateClock(); // Initial call
+
+    // Start moving e-jeeps
     for (let i = 0; i < currentStopIndexes.length; i++) {
         moveEJeepDots(i); // Start moving each e-jeep
         updateTimeUntilNext(i); // Initial time until next for each e-jeep
