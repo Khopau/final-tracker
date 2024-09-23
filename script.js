@@ -1,6 +1,6 @@
 const stops = [
     "Old Comm",
-    "Hagsan na Bato",
+    "Hagdan na Bato",
     "Ateneo Grade School",
     "2.5",
     "Leong Hall",
