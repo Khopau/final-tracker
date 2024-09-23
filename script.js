@@ -23,7 +23,7 @@ function updateClock() {
 function updateTimeUntilNext(ejeepIndex) {
     const currentStopIndex = currentStopIndexes[ejeepIndex];
     const timeToNext = travelTimes[currentStopIndex]; // Get time in minutes
-    document.getElementById('timeUntilNext').textContent = `Approx. Time to Next Stop: ${timeToNext} minutes`;
+    document.getElementById('timeUntilNext').textContent = `Time to Next Stop: ${timeToNext} minutes`;
 }
 
 function moveEJeepDots(ejeepIndex) {
@@ -49,7 +49,7 @@ function moveEJeepDots(ejeepIndex) {
             dot.style.transform = `translateY(${(nextStopIndex - currentStopIndex) * 60}px)`; // Adjust position based on index
 
             // Update the displayed time until the next e-jeep
-            document.getElementById('timeUntilNext').innerText = `Approx. time to next e-jeep: ${timeToNext / 60000} minutes`;
+            document.getElementById('timeUntilNext').innerText = `Time to next e-jeep: ${timeToNext / 60000} minutes`;
 
             setTimeout(() => {
                 dot.remove();
