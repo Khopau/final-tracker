@@ -34,7 +34,7 @@ body {
 .e-jeep-dot {
     position: absolute;
     font-size: 24px;
-    transition: transform 1s ease; /* Ensure this line is present */
+    transition: transform 1s ease; /* Smooth transition */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -42,7 +42,7 @@ body {
 
 /* Example positions for stops */
 .OldComm { top: 20px; left: 30%; }
-.HagdanNaBato { top: 80px; left: 30%; }
+.HagsanNaBato { top: 80px; left: 30%; }
 .AteneoGradeSchool { top: 140px; left: 30%; }
 .TwoFive { top: 200px; left: 30%; }
 .LeongHall { top: 260px; left: 30%; }
@@ -62,3 +62,47 @@ select {
     font-size: 18px;
     margin: 20px 0;
 }
+Updated HTML Structure
+Ensure your HTML is structured for easy navigation and a clean look:
+html
+Copy code
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ateneo E-Jeep Schedule</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Ateneo E-Jeep Schedule</h1>
+    <div id="clock"></div>
+    <div id="message"></div>
+    <div class="map">
+        <!-- Your map layout with stops -->
+    </div>
+    <div>
+        <label for="origin">Select Point of Origin:</label>
+        <select id="origin">
+            <option value="Old Comm">Old Comm</option>
+            <option value="Hagsan na Bato">Hagsan na Bato</option>
+            <option value="Ateneo Grade School">Ateneo Grade School</option>
+            <option value="2.5">2.5</option>
+            <option value="Leong Hall">Leong Hall</option>
+            <option value="Xavier Hall">Xavier Hall</option>
+        </select>
+
+        <label for="destination">Select Destination:</label>
+        <select id="destination">
+            <option value="Old Comm">Old Comm</option>
+            <option value="Hagsan na Bato">Hagsan na Bato</option>
+            <option value="Ateneo Grade School">Ateneo Grade School</option>
+            <option value="2.5">2.5</option>
+            <option value="Leong Hall">Leong Hall</option>
+            <option value="Xavier Hall">Xavier Hall</option>
+        </select>
+    </div>
+    <div id="timeUntilNext"></div>
+    <script src="script.js"></script>
+</body>
+</html>
