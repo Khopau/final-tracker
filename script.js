@@ -1,6 +1,6 @@
 const stops = [
     "Old Comm",
-    "Hagsan na Bato",
+    "Hagdan na Bato",
     "Ateneo Grade School",
     "2.5",
     "Leong Hall",
@@ -9,6 +9,12 @@ const stops = [
 
 const travelTimes = [5, 3, 4, 2, 6]; // Example travel times in minutes
 const currentStopIndexes = [0, 0]; // Two e-jeeps starting at the first stop
+
+// Function to display stop names
+function displayStops() {
+    const stopContainer = document.getElementById('stopNames');
+    stopContainer.innerHTML = stops.map(stop => `<div>${stop}</div>`).join('');
+}
 
 function isWithinSchedule() {
     return true; // Example condition
@@ -41,37 +47,44 @@ function moveEJeepDots(ejeepIndex) {
         dot.classList.add(currentStopClass);
 
         // Calculate time to next e-jeep
-        let timeToNext = calculateTimeToNextEJeep(ejeepIndex); // New function to calculate time
+        let timeToNext = calculateTimeToNextEJeep(ejeepIndex);
         setTimeout(() => {
-            dot.classList.remove(currentStopClass); // Remove the current stop class
+            dot.classList.remove(currentStopClass);
             const nextStopClass = stops[nextStopIndex].replace(/\s+/g, ''); // Get next stop class
-            dot.classList.add(nextStopClass); // Add next stop class for position
-            dot.style.transform = `translateY(${(nextStopIndex - currentStopIndex) * 60}px)`; // Adjust position based on index
+            dot.classList.add(nextStopClass);
+            dot.style.transform = `translateY(${(nextStopIndex - currentStopIndex) * 60}px)`; // Adjust position
 
             // Update the displayed time until the next e-jeep
             document.getElementById('timeUntilNext').innerText = `Approx. time to next e-jeep: ${timeToNext / 60000} minutes`;
 
             setTimeout(() => {
                 dot.remove();
-                currentStopIndexes[ejeepIndex]++; // Move to the next stop
-                moveEJeepDots(ejeepIndex); // Move to the next stop for this e-jeep
+                currentStopIndexes[ejeepIndex]++;
+                moveEJeepDots(ejeepIndex);
             }, 1000); // Delay for transition effect
         }, timeToNext);
     }
 }
 
-// New function to calculate time to next e-jeep
 function calculateTimeToNextEJeep(ejeepIndex) {
-    // Logic to determine time until the next e-jeep (adjust as needed)
-    return travelTimes[currentStopIndexes[ejeepIndex]] * 60000; // Example: using travel time to next stop
+    return travelTimes[currentStopIndexes[ejeepIndex]] * 60000; // Example
 }
 
-
+// Call the displayStops function to show the stops
 window.onload = () => {
+    displayStops(); // Show stops
     setInterval(updateClock, 1000); // Update the clock every second
     updateClock(); // Initial call to display immediately
     for (let i = 0; i < currentStopIndexes.length; i++) {
         moveEJeepDots(i); // Start moving each e-jeep
         updateTimeUntilNext(i); // Initial time until next for each e-jeep
     }
+
+    // Move e-jeeps every 90 seconds (1.5 minutes)
+    setInterval(() => {
+        for (let i = 0; i < currentStopIndexes.length; i++) {
+            moveEJeepDots(i);
+        }
+    }, 90000);
 };
+
