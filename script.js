@@ -11,7 +11,7 @@ const travelTimes = [5, 3, 4, 2, 6]; // Example travel times in minutes
 const currentStopIndexes = [0, 0]; // Two e-jeeps starting at the first stop
 
 function isWithinSchedule() {
-    return true; // Example condition
+    return true; // Placeholder for actual scheduling logic
 }
 
 function updateClock() {
@@ -41,14 +41,14 @@ function moveEJeepDots(ejeepIndex) {
         dot.classList.add(currentStopClass);
 
         // Calculate time to next e-jeep
-        let timeToNext = calculateTimeToNextEJeep(ejeepIndex); // New function to calculate time
+        let timeToNext = calculateTimeToNextEJeep(ejeepIndex);
         setTimeout(() => {
-            dot.classList.remove(currentStopClass); // Remove the current stop class
-            const nextStopClass = stops[nextStopIndex].replace(/\s+/g, ''); // Get next stop class
-            dot.classList.add(nextStopClass); // Add next stop class for position
+            dot.classList.remove(currentStopClass);
+            const nextStopClass = stops[nextStopIndex].replace(/\s+/g, '');
+            dot.classList.add(nextStopClass);
             dot.style.transform = `translateY(${(nextStopIndex - currentStopIndex) * 60}px)`; // Adjust position based on index
 
-            // Update the displayed time until the next e-jeep
+            // Update displayed time until the next e-jeep
             document.getElementById('timeUntilNext').innerText = `Time to next e-jeep: ${timeToNext / 60000} minutes`;
 
             setTimeout(() => {
@@ -60,12 +60,9 @@ function moveEJeepDots(ejeepIndex) {
     }
 }
 
-// New function to calculate time to next e-jeep
 function calculateTimeToNextEJeep(ejeepIndex) {
-    // Logic to determine time until the next e-jeep (adjust as needed)
-    return travelTimes[currentStopIndexes[ejeepIndex]] * 60000; // Example: using travel time to next stop
+    return travelTimes[currentStopIndexes[ejeepIndex]] * 60000; // Time in milliseconds
 }
-
 
 window.onload = () => {
     setInterval(updateClock, 1000); // Update the clock every second
@@ -75,4 +72,5 @@ window.onload = () => {
         updateTimeUntilNext(i); // Initial time until next for each e-jeep
     }
 };
+
 
