@@ -63,6 +63,7 @@ function moveEJeepDots(ejeepIndex) {
 
             // Move to next stop
             currentStopIndexes[ejeepIndex]++;
+            updateTimeUntilNext(ejeepIndex); // Update time after moving
             moveEJeepDots(ejeepIndex); // Move e-jeep again
         }, timeToNext);
     }
@@ -84,5 +85,3 @@ window.onload = () => {
         updateTimeUntilNext(i); // Initial time until next for each e-jeep
     }
 };
-
-
