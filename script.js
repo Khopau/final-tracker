@@ -23,7 +23,7 @@ function updateClock() {
 function updateTimeUntilNext(ejeepIndex) {
     const currentStopIndex = currentStopIndexes[ejeepIndex];
     const timeToNext = travelTimes[currentStopIndex]; // Get time in minutes
-    document.getElementById('timeUntilNext').textContent = `Time to Next Stop: ${timeToNext} minutes`;
+    document.getElementById('timeUntilNext').textContent = `Time to Next E-Jeep: ${timeToNext} minutes`;
 }
 
 function moveEJeepDots(ejeepIndex) {
